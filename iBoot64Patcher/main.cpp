@@ -10,11 +10,11 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <liboffsetfinder64/ibootpatchfinder64.hpp>
+#include <libpatchfinder/ibootpatchfinder/ibootpatchfinder64.hpp>
 
 #define HAS_ARG(x,y) (!strcmp(argv[i], x) && (i + y) < argc)
 
-using namespace tihmstar::offsetfinder64;
+using namespace tihmstar::patchfinder;
 
 #define FLAG_UNLOCK_NVRAM (1 << 0)
 
@@ -120,13 +120,13 @@ int main(int argc, const char * argv[]) {
     
     for (auto p : patches) {
         char *buf = (char*)ibp->buf();
-        offset_t off = (offset_t)(p._location - ibp->find_base());
+        uint64_t off = (uint64_t)(p._location - ibp->find_base());
         printf("applying patch=%p : ",p._location);
-        for (int i=0; i<p._patchSize; i++) {
-            printf("%02x",((uint8_t*)p._patch)[i]);
+        for (int i=0; i<p.getPatchSize(); i++) {
+            printf("%02x",((uint8_t*)p.getPatch())[i]);
         }
         printf("\n");
-        memcpy(&buf[off], p._patch, p._patchSize);
+        memcpy(&buf[off], p.getPatch(), p.getPatchSize());
     }
     
     printf("%s: Writing out patched file to %s...\n", __FUNCTION__, argv[2]);

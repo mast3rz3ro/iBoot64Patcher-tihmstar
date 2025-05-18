@@ -25,10 +25,10 @@ CFLAGS+=" -std=c11"
 # Versioning.
 
 # Checks for libraries.
-LIBGENERAL_REQUIRES_STR="libgeneral >= 28"
-LIBOFFSETFINDER64_REQUIRES_STR="liboffsetfinder64 >= 118"
+LIBGENERAL_REQUIRES_STR="libgeneral >= 75"
+LIBPATCHFINDER_REQUIRES_STR="libpatchfinder >= 153"
 PKG_CHECK_MODULES(libgeneral, $LIBGENERAL_REQUIRES_STR)
-PKG_CHECK_MODULES(liboffsetfinder64, $LIBOFFSETFINDER64_REQUIRES_STR)
+PKG_CHECK_MODULES(libpatchfinder, $LIBPATCHFINDER_REQUIRES_STR)
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h unistd.h])
